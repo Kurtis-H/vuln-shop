@@ -1,0 +1,27 @@
+# Runs the shop on http://localhost:8000 (vulnerable) and http://localhost:8001 (secure).
+# Ports are bound to 127.0.0.1 so nothing on your network can reach them.
+
+services:
+  shop-vulnerable:
+    build: .
+    environment:
+      VULN_MODE: vulnerable
+      LLM_PROVIDER: ${LLM_PROVIDER:-fake}
+      OLLAMA_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+    ports:
+      - "127.0.0.1:8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  shop-secure:
+    build: .
+    environment:
+      VULN_MODE: secure
+      LLM_PROVIDER: ${LLM_PROVIDER:-fake}
+      OLLAMA_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+    ports:
+      - "127.0.0.1:8001:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

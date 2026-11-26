@@ -1,0 +1,28 @@
+[project]
+name = "vuln-shop"
+version = "0.1.1"
+description = "An intentionally vulnerable web shop with tests that prove each vulnerability and each fix."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+filterwarnings = [
+    # Expected: VULN-04 uses a weak 8-byte JWT secret on purpose.
+    "ignore::jwt.warnings.InsecureKeyLengthWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency injection relies on Depends() in argument defaults.
+extend-immutable-calls = ["fastapi.Depends"]
+
+[tool.ruff.lint.per-file-ignores]
+# Long lines inside the embedded HTML template.
+"app/main.py" = ["E501"]
