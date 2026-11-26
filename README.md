@@ -6,7 +6,7 @@ A small web shop with **intentional security vulnerabilities**, and a test suite
 
 One switch (`VULN_MODE`) flips the whole app between the vulnerable code and the fixed code, so every attack can be tested both ways.
 
-> ⚠️ **Local use only.** This app is insecure on purpose. Never deploy it to a public server. The Docker setup binds to `127.0.0.1` so it can't be reached from your network.
+> **Warning: local use only.** This app is insecure on purpose. Never deploy it to a public server. The Docker setup binds to `127.0.0.1` so it can't be reached from your network.
 
 ## Why this exists
 
